@@ -1,56 +1,27 @@
-import com.cnqisoft.Callback;
-import com.cnqisoft.MessageEntity;
-import com.cnqisoft.ProtocolNumber;
-import com.cnqisoft.Server;
-import org.junit.Test;
-import java.io.IOException;
-import java.math.BigInteger;
-
-/**
- * @author Binary on 2020/4/30
- */
-public class ClientTest {
-
-    @Test
-    public void test() {
-        byte[] bytes = new byte[]{12, 21, 21, 31, 23, 21, 3};
-        byte[] tmp = new byte[3];
-        System.arraycopy(bytes, 2, tmp, 0 , 3);
-        System.out.println(tmp);
-    }
-
-    @Test
-    public void integerTest() {
-        String s = Integer.toHexString(456464645);
-        System.out.println(s);
-        BigInteger bigint=new BigInteger(s, 16);
-        System.out.println(bigint.intValue());
-    }
-
-    @Test
-    public void testLogin() {
-        Server server = new Server(new Callback() {
-
-            @Override
-            public void onDataReceived(MessageEntity messageEntity) {
-                System.out.println("有数据!");
-
-                if (messageEntity.getProtocolNumber() == ProtocolNumber.LOGIN) {
-                    System.out.println("登录请求");
-                    byte[] bytes = new byte[] { 0X78, 0X78, 0X01, 0X01, 0X0D, 0x0A };
-                    try {
-                        messageEntity.getOutputStream().write(bytes);
-                        System.out.println("IMEI" + messageEntity.getIMEI());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println(1);
-                }
-            }
-        });
-
-        server.start();
-    }
-
-}
+//import com.cnqisoft.gps.*;
+//import org.junit.Test;
+//
+//import java.io.IOException;
+//import java.net.Socket;
+//
+///**
+// * @author Binary on 2020/5/5
+// */
+//public class ClientTest {
+//
+//    @Test
+//    public void test() throws IOException, InterruptedException {
+//        byte[] bytes = new byte[] {120, 120, 24, (byte) 0XE3, 20, 5, 4, 8, 45, 6, -99, 2, 122, 83, -82, 12, 42, 116, 13, 10, 20, 60, 0, 17, 0, 1, 0, 0, 13, 10};
+//        Socket socket = new Socket("localhost", 6789);
+//        socket.getOutputStream().write(bytes);
+//
+//        Thread.sleep(1000000);
+//    }
+//
+//    @Test
+//    public void testBit() {
+//        String s = Utils.byteToHexString((byte) 0);
+//    }
+//
+//
+//}
